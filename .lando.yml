@@ -1,0 +1,16 @@
+name: jeuxvideo # one donne un nom (pas de majuscule, pas d'espace, pas de caractères spéciaux)
+recipe: lamp # on choisit la recette
+config:
+  php: '8.2'
+  webroot: . # on indique le dossier racine du projet
+  xdebug: 'develop.debug' # on active le débogage
+services:
+  appserver:
+    config:
+      php: ./.lando.config/php.ini # on indique le fichier de configuration php.ini
+  database:
+    portforward: 3307 # on indique le port de la base de données
+    creds:
+      user: admin
+      password: admin
+      database: jeuxvideo
