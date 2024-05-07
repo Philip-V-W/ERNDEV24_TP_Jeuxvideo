@@ -13,13 +13,14 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-light" aria-current="page" href="#">Tous les jeux</a>
+                    <a class="nav-buttons nav-link btn btn-primary text-light px-3" style="margin-right: 0.5px"
+                       aria-current="page" href="#">Tous les jeux</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle btn btn-primary text-light" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-buttons nav-link dropdown-toggle btn btn-primary text-light px-3" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">Par console </a>
                     <ul class="dropdown-menu">
-<!--                        --><?php //get_games_by_platform(); ?>
+                        <?php get_games_by_platform(); ?>
                     </ul>
                 </li>
             </ul>

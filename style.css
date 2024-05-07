@@ -9,7 +9,7 @@ body {
     background-repeat: no-repeat;
     background-size: 101%;
     background-attachment: fixed;
-    background-position: center -2px;
+    background-position: center -3px;
     display: flex;
     justify-content: center;
 }
@@ -68,3 +68,9 @@ nav ul li a {
 .collapse{
     border-bottom: 1px solid lightgrey;
 }
+
+.nav-buttons {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
