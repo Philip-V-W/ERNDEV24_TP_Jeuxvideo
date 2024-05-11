@@ -31,12 +31,18 @@ function getConsole_id($orderQuery, $query, mysqli $connection, $console_id)
 }
 
 // methode pour afficher tous les jeux video
-function get_all_video_games()
+function get_all_video_games($page = 1, $records_per_page = 4)
 {
     // on recupere la connexion
     global $connection;
+    // Calculate the SQL offset
+    $offset = ($page - 1) * $records_per_page;
     // on cree la requete
-    $query = "SELECT * FROM jeu";
+    $query = "
+SELECT * 
+FROM jeu 
+    LIMIT $records_per_page 
+OFFSET $offset";
     // on execute la requete
     if ($result = mysqli_query($connection, $query)) {
         // on verifie que l'on a des resultats
@@ -267,4 +273,16 @@ FROM jeu j
     }
 
     getConsole_id($orderQuery, $query, $connection, $console_id);
+}
+
+// methode pour afficher les jeux video en fonction de la page
+function get_total_records()
+{
+    global $connection;
+    $query = "
+SELECT COUNT(*) AS total_records 
+FROM jeu";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_records'];
 }
