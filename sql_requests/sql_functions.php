@@ -1,5 +1,35 @@
 <?php
 
+/**
+ * @param $orderQuery
+ * @param $query
+ * @param mysqli $connection
+ * @param $console_id
+ * @return mixed
+ */
+
+// methode pour recuperer l'id de la console
+function getConsole_id($orderQuery, $query, mysqli $connection, $console_id)
+{
+    $query .= " $orderQuery";
+
+    if ($stmt = mysqli_prepare($connection, $query)) {
+        if ($console_id !== null) {
+            mysqli_stmt_bind_param($stmt, 'i', $console_id);
+        }
+        if (!mysqli_stmt_execute($stmt)) {
+            echo "Erreur lors de l'exécution de la requête";
+        }
+        $result = mysqli_stmt_get_result($stmt);
+        if (mysqli_num_rows($result) > 0) {
+            while ($jeu = mysqli_fetch_assoc($result)) {
+                render_all_video_games($jeu);
+            }
+        }
+    }
+    return $console_id;
+}
+
 // methode pour afficher tous les jeux video
 function get_all_video_games()
 {
@@ -174,7 +204,7 @@ ORDER BY prix " . ($order == 'asc' ? 'ASC' : 'DESC');
 }
 
 // methode pour afficher les jeux video en fonction des avis presse
-function get_games_ordered_by_note_press($console_id, $order = null)
+function get_games_ordered_by_note_press($console_id, $order)
 {
     global $connection;
 
@@ -192,26 +222,11 @@ INNER JOIN game_console gc ON j.id = gc.jeu_id
 WHERE gc.console_id = ?";
     }
 
-    $query .= " $orderQuery";
-
-    if ($stmt = mysqli_prepare($connection, $query)) {
-        if ($console_id !== null) {
-            mysqli_stmt_bind_param($stmt, 'i', $console_id);
-        }
-        if (!mysqli_stmt_execute($stmt)) {
-            echo "Erreur lors de l'exécution de la requête";
-        }
-        $result = mysqli_stmt_get_result($stmt);
-        if (mysqli_num_rows($result) > 0) {
-            while ($jeu = mysqli_fetch_assoc($result)) {
-                render_all_video_games($jeu);
-            }
-        }
-    }
+    getConsole_id($orderQuery, $query, $connection, $console_id);
 }
 
 // methode pour afficher les jeux video en fonction des avis utilisateurs
-function get_games_ordered_by_note_user($console_id, $order = null)
+function get_games_ordered_by_note_user($console_id, $order)
 {
     global $connection;
 
@@ -229,26 +244,11 @@ FROM jeu j
             WHERE gc.console_id = ?";
     }
 
-    $query .= " $orderQuery";
-
-    if ($stmt = mysqli_prepare($connection, $query)) {
-        if ($console_id !== null) {
-            mysqli_stmt_bind_param($stmt, 'i', $console_id);
-        }
-        if (!mysqli_stmt_execute($stmt)) {
-            echo "Erreur lors de l'exécution de la requête";
-        }
-        $result = mysqli_stmt_get_result($stmt);
-        if (mysqli_num_rows($result) > 0) {
-            while ($jeu = mysqli_fetch_assoc($result)) {
-                render_all_video_games($jeu);
-            }
-        }
-    }
+    getConsole_id($orderQuery, $query, $connection, $console_id);
 }
 
 // methode pour afficher les jeux video en fonction de l'age
-function get_games_ordered_by_age($console_id, $order = null)
+function get_games_ordered_by_age($console_id, $order)
 {
     global $connection;
 
@@ -266,20 +266,5 @@ FROM jeu j
             WHERE gc.console_id = ?";
     }
 
-    $query .= " $orderQuery";
-
-    if ($stmt = mysqli_prepare($connection, $query)) {
-        if ($console_id !== null) {
-            mysqli_stmt_bind_param($stmt, 'i', $console_id);
-        }
-        if (!mysqli_stmt_execute($stmt)) {
-            echo "Erreur lors de l'exécution de la requête";
-        }
-        $result = mysqli_stmt_get_result($stmt);
-        if (mysqli_num_rows($result) > 0) {
-            while ($jeu = mysqli_fetch_assoc($result)) {
-                render_all_video_games($jeu);
-            }
-        }
-    }
+    getConsole_id($orderQuery, $query, $connection, $console_id);
 }
