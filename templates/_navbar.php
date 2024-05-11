@@ -31,8 +31,10 @@
                         $console_id = isset($_GET['console_id']) ? intval($_GET['console_id']) : null;
                         $price_url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order_by=price&order=" : "../game_price_filter.php?order=";
                         ?>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $price_url; ?>asc">Prix croissant</a></li>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $price_url; ?>desc">Prix décroissant</a></li>
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $price_url; ?>asc">Prix
+                                croissant</a></li>
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $price_url; ?>desc">Prix
+                                décroissant</a></li>
                     </ul>
                 </li>
                 <!-- dropdown pour afficher les jeux par avis -->
@@ -43,19 +45,19 @@
                     <ul class="dropdown-menu bg-primary">
                         <?php
                         $console_id = isset($_GET['console_id']) ? intval($_GET['console_id']) : null;
-                        $url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order=" : "../game_note_press_filter.php?order=";
+                        $press_note_url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order_by=press_note&order=" : "../game_note_press_filter.php?order=";
                         ?>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $url; ?>asc">Avis
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $press_note_url; ?>asc">Avis
                                 presse croissant</a></li>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $url; ?>desc">Avis
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $press_note_url; ?>desc">Avis
                                 presse décroissant</a></li>
                         <?php
                         $console_id = isset($_GET['console_id']) ? intval($_GET['console_id']) : null;
-                        $url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order=" : "../game_note_user_filter.php?order=";
+                        $user_note_url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order_by=user_note&order=" : "../game_note_user_filter.php?order=";
                         ?>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $url; ?>asc">Avis
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $user_note_url; ?>asc">Avis
                                 utilisateur croissant</a></li>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $url; ?>desc">Avis
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $user_note_url; ?>desc">Avis
                                 utilisateur décroissant</a></li>
                     </ul>
                 </li>
@@ -66,12 +68,12 @@
                     <ul class="dropdown-menu bg-primary">
                         <?php
                         $console_id = isset($_GET['console_id']) ? intval($_GET['console_id']) : null;
-
                         $age_url = $console_id ? "../gaming_platforms.php?console_id=$console_id&order_by=age&order=" : "../game_age_filter.php?order=";
                         ?>
-
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $age_url; ?>asc">Age croissant</a></li>
-                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $age_url; ?>desc">Age décroissant</a></li>
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $age_url; ?>asc">Age
+                                croissant</a></li>
+                        <li><a class="dropdown-item fw-semibold text-light" href="<?php echo $age_url; ?>desc">Age
+                                décroissant</a></li>
                     </ul>
                 </li>
             </ul>

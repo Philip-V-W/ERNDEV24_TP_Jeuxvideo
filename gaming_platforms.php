@@ -16,6 +16,10 @@ if ($order_by === 'price') {
     get_games_by_platform_id($console_id, $order);
 } elseif ($order_by === 'age') {
     get_games_ordered_by_age($console_id, $order);
+} elseif ($order_by === 'press_note') {
+    get_games_ordered_by_note_press($console_id, $order);
+} elseif ($order_by === 'user_note') {
+    get_games_ordered_by_note_user($console_id, $order);
 } else {
     get_games_by_platform_id($console_id);
 }
