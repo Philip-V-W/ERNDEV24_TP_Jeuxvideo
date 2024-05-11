@@ -5,11 +5,10 @@
 <?php require_once('./templates/_header.php') ?>
 <?php require_once('./templates/_navbar.php') ?>
 
-<?php if (isset($_GET['console_id'])) {
-    $console_id = intval($_GET['console_id']);
-    $order = isset($_GET['order']) ? $_GET['order'] : null;
+<?php if (isset($_GET['order'])) {
+    $order = $_GET['order'] == 'asc' ? 'asc' : 'desc';
     echo '<div class="d-flex flex-wrap justify-content-center">';
-    get_games_by_platform_id($console_id, $order);
+    get_games_ordered_by_note_press($order);
     echo '</div>';
 } ?>
 

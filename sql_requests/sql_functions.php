@@ -78,7 +78,6 @@ GROUP BY j.id";
     }
 }
 
-
 // methode pour afficher les jeux video disponibles en fonction de la plateforme
 function get_games_by_platform()
 {
@@ -98,7 +97,8 @@ GROUP BY c.id, c.label";
         if (mysqli_num_rows($result) > 0) {
             // on peut parcourir les resultats
             while ($jeu = mysqli_fetch_assoc($result)) { ?>
-                <li><a class="dropdown-item fw-semibold text-light" href="../gaming_platforms.php?console_id=<?php echo $jeu['id'] ?>">
+                <li><a class="dropdown-item fw-semibold text-light"
+                       href="../gaming_platforms.php?console_id=<?php echo $jeu['id'] ?>">
                         <?php echo $jeu['label'] . ' ( ' . $jeu['game_count'] . ' )' ?>
                     </a>
                 </li>
@@ -108,7 +108,54 @@ GROUP BY c.id, c.label";
 }
 
 // methode pour afficher les jeux video en fonction de leur plateforme id
-function get_games_by_platform_id($jeu_id)
+function get_games_by_platform_id($console_id, $order = null)
+{
+    global $connection;
+    $orderQuery = $order ? "ORDER BY j.prix $order" : "";
+    $query = "
+SELECT j.* 
+FROM jeu j 
+    INNER JOIN game_console gc ON j.id = gc.jeu_id 
+WHERE gc.console_id = ? $orderQuery";
+    if ($stmt = mysqli_prepare($connection, $query)) {
+        mysqli_stmt_bind_param($stmt, 'i', $console_id);
+        if (!mysqli_stmt_execute($stmt)) {
+            echo "Erreur lors de l'execution de la requete";
+        }
+        $result = mysqli_stmt_get_result($stmt);
+        if (mysqli_num_rows($result) > 0) {
+            while ($jeu = mysqli_fetch_assoc($result)) {
+                render_all_video_games($jeu);
+            }
+        }
+    }
+}
+
+// methode pour afficher les jeux video en fonction du prix
+function get_games_ordered_by_price($order)
+{
+    // on expose la variable connection dans la fonction
+    global $connection;
+    // on cree la requete
+    $query = "
+SELECT * 
+FROM jeu 
+ORDER BY prix " . ($order == 'asc' ? 'ASC' : 'DESC');
+    // on execute la requete
+    if ($result = mysqli_query($connection, $query)) {
+        // on verifie que l'on a des resultats
+        if (mysqli_num_rows($result) > 0) {
+            // on peut parcourir les resultats
+            while ($video_game = mysqli_fetch_assoc($result)) {
+                // on appelle la methode pour afficher les jeux video
+                render_all_video_games($video_game);
+            }
+        }
+    }
+}
+
+// methode pour afficher les jeux video en fonction des avis presse
+function get_games_ordered_by_note_press($order)
 {
     // on expose la variable connection dans la fonction
     global $connection;
@@ -116,24 +163,66 @@ function get_games_by_platform_id($jeu_id)
     $query = "
 SELECT j.*
 FROM jeu j
-         INNER JOIN game_console gc ON j.id = gc.jeu_id
-WHERE gc.console_id = ?
-GROUP BY j.id";
-    // on prepare la requete
-    if ($stmt = mysqli_prepare($connection, $query)) {
-        // on bind les parametres
-        mysqli_stmt_bind_param($stmt, 'i', $jeu_id);
-        // on execute la requete
-        if (!mysqli_stmt_execute($stmt)) {
-            echo "Erreur lors de l'execution de la requete";
-        }
+    INNER JOIN note n ON j.note_id = n.id
+ORDER BY n.note_media " . ($order == 'asc' ? 'ASC' : 'DESC');
+
+    // on execute la requete
+    if ($result = mysqli_query($connection, $query)) {
         // on verifie que l'on a des resultats
-        $result = mysqli_stmt_get_result($stmt);
-        // on peut parcourir les resultats
         if (mysqli_num_rows($result) > 0) {
-            while ($jeu = mysqli_fetch_assoc($result)) {
+            // on peut parcourir les resultats
+            while ($video_game = mysqli_fetch_assoc($result)) {
                 // on appelle la methode pour afficher les jeux video
-                render_all_video_games($jeu);
+                render_all_video_games($video_game);
+            }
+        }
+    }
+}
+
+// methode pour afficher les jeux video en fonction des avis utilisateur
+function get_games_ordered_by_note_user($order)
+{
+    // on expose la variable connection dans la fonction
+    global $connection;
+    // on cree la requete
+    $query = "
+SELECT j.*
+FROM jeu j
+    INNER JOIN note n ON j.note_id = n.id
+ORDER BY n.note_utilisateur " . ($order == 'asc' ? 'ASC' : 'DESC');
+
+    // on execute la requete
+    if ($result = mysqli_query($connection, $query)) {
+        // on verifie que l'on a des resultats
+        if (mysqli_num_rows($result) > 0) {
+            // on peut parcourir les resultats
+            while ($video_game = mysqli_fetch_assoc($result)) {
+                // on appelle la methode pour afficher les jeux video
+                render_all_video_games($video_game);
+            }
+        }
+    }
+}
+
+// methode pour afficher les jeux video en fonction de l'age
+function get_games_ordered_by_age($order)
+{
+    // on expose la variable connection dans la fonction
+    global $connection;
+    // on cree la requete
+    $query = "
+SELECT j.* 
+FROM jeu j 
+    INNER JOIN restriction_age ra ON j.age_id = ra.id 
+ORDER BY ra.label " . ($order == 'asc' ? 'ASC' : 'DESC');
+    // on execute la requete
+    if ($result = mysqli_query($connection, $query)) {
+        // on verifie que l'on a des resultats
+        if (mysqli_num_rows($result) > 0) {
+            // on peut parcourir les resultats
+            while ($video_game = mysqli_fetch_assoc($result)) {
+                // on appelle la methode pour afficher les jeux video
+                render_all_video_games($video_game);
             }
         }
     }

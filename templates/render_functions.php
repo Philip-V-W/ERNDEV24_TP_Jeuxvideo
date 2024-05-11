@@ -17,7 +17,7 @@ function render_all_video_games($jeu)
                 } ?>
             </p>
             <a class="align-self-start btn btn-primary ms-3 mb-3 text-light fw-semibold"
-               href="../detail.php?jeu_id=<?php echo $jeu['id'] ?>">Voir détail</a>
+               href="../game_detail.php?jeu_id=<?php echo $jeu['id'] ?>">Voir détail</a>
         </div>
     </div>
 <?php }
