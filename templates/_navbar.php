@@ -4,22 +4,27 @@
 
 <nav class="navbar navbar-expand-lg w-100">
     <div class="container-fluid">
-        <!--        <button class="navbar-toggler btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"-->
-        <!--                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--            <span class="navbar-toggler-icon"></span>-->
-        <!--        </button>-->
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-buttons nav-link btn btn-primary text-light px-3 fw-semibold" style="margin-right: 1px"
+                    <a class="nav-buttons nav-link btn btn-primary text-light px-3 fw-semibold"
+                       style="margin-right: 1px"
                        aria-current="page" href="../index.php">Tous les jeux</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-buttons nav-link dropdown-toggle btn btn-primary text-light px-3 fw-semibold" href="#"
-                       role="button" data-bs-toggle="dropdown"
+                    <a class="nav-buttons nav-link dropdown-toggle btn btn-primary text-light px-3 fw-semibold"
+                       style="margin-right: 1px" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">Par console </a>
                     <ul class="dropdown-menu bg-primary rounded-0">
                         <?php get_games_by_platform(); ?>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-buttons nav-link dropdown-toggle btn btn-primary text-light px-3 fw-semibold"
+                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Par prix </a>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a class="dropdown-item fw-semibold text-light" href="../toys.php?order=asc">Prix croissant</a></li>
+                        <li><a class="dropdown-item fw-semibold text-light" href="../toys.php?order=desc">Prix décroissant</a></li>
                     </ul>
                 </li>
             </ul>

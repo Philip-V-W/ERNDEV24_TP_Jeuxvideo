@@ -66,3 +66,4 @@ function render_game_detail($jeu, $restriction_age, $note, $console)
         </div>
     </div>
 <?php }
+

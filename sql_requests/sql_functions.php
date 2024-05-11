@@ -79,7 +79,7 @@ GROUP BY j.id";
 }
 
 
-// methode pour afficher les jeux disponibles en fonction de la plateforme
+// methode pour afficher les jeux video disponibles en fonction de la plateforme
 function get_games_by_platform()
 {
     // on recupere la connexion
@@ -103,6 +103,38 @@ GROUP BY c.id, c.label";
                     </a>
                 </li>
             <?php }
+        }
+    }
+}
+
+// methode pour afficher les jeux video en fonction de leur plateforme id
+function get_games_by_platform_id($jeu_id)
+{
+    // on expose la variable connection dans la fonction
+    global $connection;
+    // on cree la requete
+    $query = "
+SELECT j.*
+FROM jeu j
+         INNER JOIN game_console gc ON j.id = gc.jeu_id
+WHERE gc.console_id = ?
+GROUP BY j.id";
+    // on prepare la requete
+    if ($stmt = mysqli_prepare($connection, $query)) {
+        // on bind les parametres
+        mysqli_stmt_bind_param($stmt, 'i', $jeu_id);
+        // on execute la requete
+        if (!mysqli_stmt_execute($stmt)) {
+            echo "Erreur lors de l'execution de la requete";
+        }
+        // on verifie que l'on a des resultats
+        $result = mysqli_stmt_get_result($stmt);
+        // on peut parcourir les resultats
+        if (mysqli_num_rows($result) > 0) {
+            while ($jeu = mysqli_fetch_assoc($result)) {
+                // on appelle la methode pour afficher les jeux video
+                render_all_video_games($jeu);
+            }
         }
     }
 }
