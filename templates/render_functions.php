@@ -45,7 +45,7 @@ function render_game_detail($jeu, $restriction_age, $note, $console)
                     </p>
                     <p class="jeu_description fw-bold">Synopsis: <span
                                 class="fw-normal"><?php echo $jeu['description'] ?></span></p>
-                    <p class="jeu_date_sortie fw-lighter">Date de sorti: <span
+                    <p class="jeu_date_sortie fw-lighter">Date de sortie: <span
                                 class="text-primary fw-bold">
                                 <?php echo date('d/m/Y', strtotime($jeu['date_sortie'])); ?></span>
                     </p>
@@ -53,7 +53,7 @@ function render_game_detail($jeu, $restriction_age, $note, $console)
                         <img class="jeu_restriction_age border rounded-2 border-1" style="padding: 5px"
                              src="../images/pegi/<?php echo $restriction_age['image_path'] ?>"
                              alt="pegi <?php echo $restriction_age['label'] ?>">
-                        <p class="ms-2">age: <?php echo $restriction_age['label'] ?>+</p>
+                        <p class="ms-2">Age: <?php echo $restriction_age['label'] ?>+</p>
                     </div>
                     <div class="d-flex justify-content-around mt-4">
                         <p class="jeu_note"><i class="text-warning fas fa-star mx-1"></i>Avis presse: <span
